@@ -1,6 +1,15 @@
+import { headers } from "next/headers";
 import Image from "next/image";
 
 export default function Home() {
+  // 取得 host
+  const host = headers().get("host") || "";
+  // 解析 subdomain
+  let subdomain = "";
+  if (host.endsWith(".leechenghsiu.dev")) {
+    subdomain = host.replace(".leechenghsiu.dev", "");
+  }
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
@@ -13,6 +22,10 @@ export default function Home() {
           priority
         />
         <h1>Hello World</h1>
+        {/* 顯示 subdomain */}
+        <div className="text-xl font-bold text-blue-600">
+          {subdomain ? `目前子網域：${subdomain}` : "目前不是子網域"}
+        </div>
         <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
           <li className="mb-2 tracking-[-.01em]">
             Get started by editing{" "}
